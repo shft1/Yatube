@@ -43,8 +43,12 @@ class Comment(models.Model):
 
 
 class Follow(models.Model):
-    user = models.CharField(max_length=50)
-    following = models.CharField(max_length=50)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        null=True, related_name='user')
+    following = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        null=True, related_name='following')
 
     def __str__(self):
         return f'{self.user} - {self.following}'
