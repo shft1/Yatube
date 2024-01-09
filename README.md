@@ -49,13 +49,20 @@ python3 manage.py runserver
 
 ### Примеры запросов
 
-Создание поста
+
+# Создание поста:
 
 <img width="1264" alt="image" src="https://github.com/shft1/api_final_yatube/assets/143039459/1efc197a-7ce1-4907-94ff-198e7dccae6e">
 
-Создание комментария
+
+
+# Создание комментария:
 
 <img width="1272" alt="image" src="https://github.com/shft1/api_final_yatube/assets/143039459/338cd2cc-3737-40b9-8538-38742e27a2e7">
 
-Получение списка групп
+
+
+# Получение списка групп:
+
+
 <img width="1263" alt="image" src="https://github.com/shft1/api_final_yatube/assets/143039459/2bf1892e-e37b-4e8b-adc3-576999bc50bc">
