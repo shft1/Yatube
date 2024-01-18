@@ -79,4 +79,4 @@ redoc/
 
 
 ### Автор:
-<a href="https://github.com/shft1">Алексей</a>
+[Алексей](https://github.com/shft1)
