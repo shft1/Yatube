@@ -22,7 +22,11 @@ python3 -m venv env
 ```
 
 ```
+Для Linux и macOS:
 source venv/bin/activate
+
+Для Windows:
+source venv/Scripts/activate
 ```
 
 Установить зависимости из файла requirements.txt:
@@ -47,6 +51,12 @@ python3 manage.py migrate
 python3 manage.py runserver
 ```
 
+Докуменатция API находится по адресу:
+
+```
+redoc/
+```
+
 # Примеры запросов
 
 
@@ -66,3 +76,7 @@ python3 manage.py runserver
 
 
 <img width="1263" alt="image" src="https://github.com/shft1/api_final_yatube/assets/143039459/2bf1892e-e37b-4e8b-adc3-576999bc50bc">
+
+
+### Автор:
+<a href="https://github.com/shft1">Алексей</a>

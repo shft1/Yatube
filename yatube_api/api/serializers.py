@@ -1,9 +1,8 @@
-from rest_framework import serializers
-from rest_framework.relations import SlugRelatedField
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
+from rest_framework import serializers
+from rest_framework.relations import SlugRelatedField
 from rest_framework.validators import UniqueTogetherValidator
-from rest_framework.exceptions import ParseError
 
 from posts.models import Comment, Follow, Group, Post
 
@@ -19,9 +18,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    author = SlugRelatedField(
-        read_only=True, slug_field='username'
-    )
+    author = SlugRelatedField(read_only=True, slug_field='username')
 
     class Meta:
         fields = '__all__'
@@ -57,12 +54,9 @@ class FollowSerializer(serializers.ModelSerializer):
             )
         ]
 
-    def create(self, validated_data):
-        following_username = validated_data.get('following')
-        following = get_object_or_404(User, username=following_username)
+    def validate_following(self, value):
         user = self.context.get('request').user
-        if user == following:
-            raise ParseError(
-                detail='Пользователь не может подписаться на себя!')
-        user_following = Follow.objects.create(user=user, following=following)
-        return user_following
+        following = get_object_or_404(User, username=value)
+        if following == user:
+            raise serializers.ValidationError('Нельзя на себя подписываться!')
+        return value

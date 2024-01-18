@@ -3,7 +3,7 @@ from django.db import models
 
 User = get_user_model()
 
-LIM = 20
+LIMIT = 20
 
 
 class Group(models.Model):
@@ -12,7 +12,7 @@ class Group(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return self.title[:LIM]
+        return self.title[:LIMIT]
 
 
 class Post(models.Model):
@@ -25,8 +25,11 @@ class Post(models.Model):
     group = models.ForeignKey(
         Group, on_delete=models.SET_NULL, null=True, blank=True)
 
+    class Meta:
+        ordering = ('pub_date',)
+
     def __str__(self):
-        return self.text[:LIM]
+        return self.text[:LIMIT]
 
 
 class Comment(models.Model):
@@ -44,11 +47,21 @@ class Comment(models.Model):
 
 class Follow(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE,
-        null=True, related_name='user')
+        User, on_delete=models.CASCADE, related_name='user')
     following = models.ForeignKey(
-        User, on_delete=models.CASCADE,
-        null=True, related_name='following')
+        User, on_delete=models.CASCADE, related_name='following')
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'following'],
+                name='unique_user_following'
+            ),
+            models.CheckConstraint(
+                check=~models.Q(models.F('user') == models.F('following')),
+                name='user_not_following'
+            )
+        ]
 
     def __str__(self):
         return f'{self.user} - {self.following}'
